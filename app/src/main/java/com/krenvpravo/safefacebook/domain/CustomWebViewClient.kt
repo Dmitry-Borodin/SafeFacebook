@@ -1,4 +1,4 @@
-package com.krenvpravo.safefacebook
+package com.krenvpravo.safefacebook.domain
 
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest

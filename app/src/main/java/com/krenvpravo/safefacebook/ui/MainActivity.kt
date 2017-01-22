@@ -10,9 +10,10 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.krenvpravo.safefacebook.Constants
-import com.krenvpravo.safefacebook.CustomWebViewClient
-import com.krenvpravo.safefacebook.CustomWebViewClient.WebLoadingCallback
+import com.krenvpravo.safefacebook.domain.CustomWebViewClient
+import com.krenvpravo.safefacebook.domain.CustomWebViewClient.WebLoadingCallback
 import com.krenvpravo.safefacebook.R
+import com.krenvpravo.safefacebook.domain.UrlStateKeeper
 
 /**
  * @author Dmitry Borodin on 2017-01-22.
@@ -20,14 +21,14 @@ import com.krenvpravo.safefacebook.R
 
 class MainActivity : Activity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initViews()
-    }
-
     private val webView: WebView by lazy {
         val webView = WebView(this)
         webView
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initViews()
     }
 
     private fun initViews() {
@@ -39,16 +40,16 @@ class MainActivity : Activity() {
             }
 
             override fun onUrlLoadFialed() {
-                reload()
+                onLoadFailed()
             }
         }))
         setUpWebSettings(webView.settings)
         setUpCookies(webView)
         setContentView(webView)
-        webView.loadUrl(Constants.MAIN_URL)
+        webView.loadUrl(UrlStateKeeper.getLast())
     }
 
-    private fun reload() {
+    private fun onLoadFailed() {
         webView.reload()
     }
 
