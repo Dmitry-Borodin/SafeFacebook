@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Safe Facebook</string>
+    <string name="progress_dialog_initial_title">Loading facebook page</string>
 </resources>
