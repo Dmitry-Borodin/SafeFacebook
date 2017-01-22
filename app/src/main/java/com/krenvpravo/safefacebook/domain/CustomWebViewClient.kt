@@ -24,6 +24,7 @@ class CustomWebViewClient(val context: Context, val callback: WebLoadingCallback
 
     override fun onPageFinished(view: WebView?, url: String?) {
         super.onPageFinished(view, url)
+        callback.onLoadedNewUrl(url?:"")
         callback.onUrlLoaded()
     }
 
@@ -45,5 +46,6 @@ class CustomWebViewClient(val context: Context, val callback: WebLoadingCallback
     interface WebLoadingCallback {
         fun onUrlLoaded()
         fun onUrlLoadFailed(reason: String)
+        fun onLoadedNewUrl(newUrl: String)
     }
 }

@@ -12,16 +12,15 @@ object UrlStateKeeper {
     }
 
     fun put(url: String) {
-        backstack.add(url);
+        backstack.add(url)
     }
 
     fun pup(): String? {
+        backstack.removeAt(backstack.lastIndex)
         if (backstack.isEmpty()) {
             return null
         }
-        val value = backstack.last()
-        backstack.removeAt(backstack.lastIndex)
-        return value
+        return backstack.last()
     }
 
     fun getLast(): String {

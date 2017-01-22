@@ -35,6 +35,10 @@ class MainActivity : Activity() {
     private fun initViews() {
         showProgressDialog()
         webView.setWebViewClient(CustomWebViewClient(this, object : WebLoadingCallback {
+            override fun onLoadedNewUrl(newUrl: String) {
+                UrlStateKeeper.put(newUrl)
+            }
+
             override fun onUrlLoaded() {
                 dismissProgressDialog()
             }
@@ -47,6 +51,15 @@ class MainActivity : Activity() {
         setUpCookies(webView)
         setContentView(webView)
         webView.loadUrl(UrlStateKeeper.getLast())
+    }
+
+    override fun onBackPressed() {
+        val previousUrl = UrlStateKeeper.pup()
+        if (previousUrl != null) {
+            webView.loadUrl(previousUrl)
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private fun dismissProgressDialog() {
