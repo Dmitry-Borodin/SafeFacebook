@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Safe Facebook</string>
     <string name="progress_dialog_initial_title">Loading facebook page</string>
+    <string name="unknown_loading_error">Error in loading data</string>
+    <string name="load_fail_content1">Reason:</string>
+    <string name="load_fail_content2">/n</string>
+    <string name="load_fail_content3">Do you want to retry?</string>
+    <string name="load_fail_title">Error in loading page</string>
+    <string name="retry_button">Retry</string>
+    <string name="exit_button">Exit</string>
 </resources>

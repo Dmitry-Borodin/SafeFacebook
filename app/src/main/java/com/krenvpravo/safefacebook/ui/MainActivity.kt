@@ -9,6 +9,8 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ProgressBar
+import com.afollestad.materialdialogs.MaterialDialog
 import com.krenvpravo.safefacebook.Constants
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient.WebLoadingCallback
@@ -21,6 +23,8 @@ import com.krenvpravo.safefacebook.domain.UrlStateKeeper
 
 class MainActivity : Activity() {
 
+    private var progressDialog: ProgressDialog? = null
+
     private val webView: WebView by lazy {
         val webView = WebView(this)
         webView
@@ -31,16 +35,16 @@ class MainActivity : Activity() {
         initViews()
     }
 
+
     private fun initViews() {
-        val progressdialog = ProgressDialog(this)
-        progressdialog.setTitle(getString(R.string.progress_dialog_initial_title))
-        webView.setWebViewClient(CustomWebViewClient(object : WebLoadingCallback{
+        showProgressDialog()
+        webView.setWebViewClient(CustomWebViewClient(this, object : WebLoadingCallback {
             override fun onUrlLoaded() {
-                progressdialog.dismiss()
+                dismissProgressDialog()
             }
 
-            override fun onUrlLoadFialed() {
-                onLoadFailed()
+            override fun onUrlLoadFailed(reason: String) {
+                showRetryDialog(reason)
             }
         }))
         setUpWebSettings(webView.settings)
@@ -49,8 +53,37 @@ class MainActivity : Activity() {
         webView.loadUrl(UrlStateKeeper.getLast())
     }
 
-    private fun onLoadFailed() {
-        webView.reload()
+    private fun dismissProgressDialog() {
+        if (progressDialog?.isShowing ?: false) {
+            progressDialog?.dismiss()
+            progressDialog = null
+        }
+    }
+
+    private fun showProgressDialog() {
+        if (progressDialog == null) progressDialog = ProgressDialog(this)
+        progressDialog?.setMessage(getString(R.string.progress_dialog_initial_title))
+        progressDialog?.show()
+    }
+
+    private fun showRetryDialog(whyFailed: String) {
+        val sbContent = StringBuilder()
+        sbContent.append(getString(R.string.load_fail_content1))
+                .append(whyFailed)
+                .append(getString(R.string.load_fail_content2))
+                .append(getString(R.string.load_fail_content3))
+
+        MaterialDialog.Builder(this)
+                .title(getString(R.string.load_fail_title))
+                .content(sbContent.toString())
+                .positiveText(getString(R.string.retry_button))
+                .onPositive { dialog, which ->
+                    webView.reload()
+                    showProgressDialog()
+                }
+                .negativeText(getString(R.string.exit_button))
+                .onNegative { dialog, which -> finish() }
+                .show()
     }
 
 
