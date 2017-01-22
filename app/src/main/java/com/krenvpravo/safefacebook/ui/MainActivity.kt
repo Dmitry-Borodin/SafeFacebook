@@ -5,16 +5,12 @@ import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
 import android.webkit.CookieManager
-import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.ProgressBar
 import com.afollestad.materialdialogs.MaterialDialog
-import com.krenvpravo.safefacebook.Constants
+import com.krenvpravo.safefacebook.R
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient.WebLoadingCallback
-import com.krenvpravo.safefacebook.R
 import com.krenvpravo.safefacebook.domain.UrlStateKeeper
 
 /**

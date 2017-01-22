@@ -9,7 +9,7 @@ import com.krenvpravo.safefacebook.R
  * @author Dmitry Borodin on 2017-01-22.
  */
 
-class CustomWebViewClient( val context: Context, val callback: WebLoadingCallback) : WebViewClient() {
+class CustomWebViewClient(val context: Context, val callback: WebLoadingCallback) : WebViewClient() {
 
     private val FACEBOOK_HOSTNAME: String = "facebook.com"
 

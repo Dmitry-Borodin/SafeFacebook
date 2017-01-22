@@ -11,11 +11,11 @@ object UrlStateKeeper {
         ArrayList<String>()
     }
 
-    fun put(url : String) {
+    fun put(url: String) {
         backstack.add(url);
     }
 
-    fun pup() : String? {
+    fun pup(): String? {
         if (backstack.isEmpty()) {
             return null
         }
@@ -24,7 +24,7 @@ object UrlStateKeeper {
         return value
     }
 
-    fun getLast() : String {
+    fun getLast(): String {
         if (backstack.isEmpty()) {
             return Constants.MAIN_URL
         }
