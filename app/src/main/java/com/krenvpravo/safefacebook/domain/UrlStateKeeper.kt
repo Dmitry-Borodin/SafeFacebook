@@ -12,7 +12,9 @@ object UrlStateKeeper {
     }
 
     fun put(url: String) {
-        backstack.add(url)
+        if (!url.equals(getLast())) {
+            backstack.add(url)
+        }
     }
 
     fun pup(): String? {
