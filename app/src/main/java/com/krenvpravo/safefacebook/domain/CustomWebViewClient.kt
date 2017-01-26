@@ -20,7 +20,7 @@ class CustomWebViewClient(val activityContext: Context, val callback: WebLoading
     @Suppress("RedundantIf")
     override fun shouldOverrideUrlLoading(view: WebView, request: String): Boolean {
         if (FACEBOOK_HOSTNAME in request) {
-            return false //not start browser
+            return false //show in web view
         } else {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(request))
             if (intent.resolveActivity(activityContext.packageManager) != null) {
@@ -28,7 +28,7 @@ class CustomWebViewClient(val activityContext: Context, val callback: WebLoading
             } else {
                 Toast.makeText(activityContext, activityContext.getString(R.string.webbrowser_not_sound), Toast.LENGTH_LONG).show()
             }
-            return true //open in browser
+            return true //NOT show in web view - i opened browser
         }
     }
 
