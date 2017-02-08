@@ -8,6 +8,7 @@ import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
 import com.afollestad.materialdialogs.MaterialDialog
+import com.krenvpravo.safefacebook.Constants
 import com.krenvpravo.safefacebook.R
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient.WebLoadingCallback
@@ -100,6 +101,7 @@ class MainActivity : Activity() {
         settings.setGeolocationEnabled(false)
         settings.javaScriptEnabled = false
         settings.setAppCacheEnabled(true)
+        settings.userAgentString = Constants.USERAGENT_CHROME
         settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
     }
 
