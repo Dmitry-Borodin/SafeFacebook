@@ -8,11 +8,13 @@ import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
 import com.afollestad.materialdialogs.MaterialDialog
+import com.crashlytics.android.Crashlytics
 import com.krenvpravo.safefacebook.Constants
 import com.krenvpravo.safefacebook.R
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient.WebLoadingCallback
 import com.krenvpravo.safefacebook.domain.UrlStateKeeper
+import io.fabric.sdk.android.Fabric
 
 /**
  * @author Dmitry Borodin on 2017-01-22.
@@ -29,6 +31,7 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         initViews()
     }
 
