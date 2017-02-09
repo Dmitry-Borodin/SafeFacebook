@@ -18,7 +18,9 @@ object UrlStateKeeper {
     }
 
     fun pup(): String? {
-        backstack.removeAt(backstack.lastIndex)
+        if (backstack.isNotEmpty()) {
+            backstack.removeAt(backstack.lastIndex)
+        }
         if (backstack.isEmpty()) {
             return null
         }
