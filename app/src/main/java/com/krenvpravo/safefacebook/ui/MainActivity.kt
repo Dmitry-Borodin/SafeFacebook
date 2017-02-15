@@ -2,6 +2,8 @@ package com.krenvpravo.safefacebook.ui
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.webkit.CookieManager
@@ -15,6 +17,7 @@ import com.krenvpravo.safefacebook.domain.CustomWebViewClient
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient.WebLoadingCallback
 import com.krenvpravo.safefacebook.domain.UrlStateKeeper
 import io.fabric.sdk.android.Fabric
+
 
 /**
  * @author Dmitry Borodin on 2017-01-22.
@@ -63,6 +66,7 @@ class MainActivity : Activity() {
         setUpWebSettings(webView.settings)
         setUpCookies(webView)
         setContentView(webView)
+
         webView.loadUrl(UrlStateKeeper.getLast())
     }
 
@@ -100,8 +104,12 @@ class MainActivity : Activity() {
                 .content(sbContent.toString())
                 .positiveText(getString(R.string.retry_button))
                 .onPositive { dialog, which ->
-                    webView.reload()
-                    showProgressDialog()
+                    if (isNetworkAvailable()) {
+                        webView.reload()
+                        showProgressDialog()
+                    } else {
+                        showRetryDialog(getString(R.string.no_network_connection))
+                    }
                 }
                 .negativeText(getString(R.string.exit_button))
                 .onNegative { dialog, which -> finish() }
@@ -124,5 +132,11 @@ class MainActivity : Activity() {
         } else {
             cookieManager.setAcceptCookie(true)
         }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null
     }
 }
