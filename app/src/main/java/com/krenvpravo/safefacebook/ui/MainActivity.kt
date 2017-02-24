@@ -122,7 +122,8 @@ class MainActivity : Activity() {
         settings.javaScriptEnabled = false
         settings.setAppCacheEnabled(true)
         settings.userAgentString = Constants.USERAGENT_CHROME
-        settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
+        settings.setAppCacheEnabled(true)
+        settings.setAppCachePath(cacheDir.path)
     }
 
     private fun setUpCookies(webView: WebView) {
