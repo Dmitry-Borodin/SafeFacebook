@@ -123,6 +123,7 @@ class MainActivity : Activity() {
         settings.setAppCacheEnabled(true)
         settings.userAgentString = Constants.USERAGENT_CHROME
         settings.setAppCacheEnabled(true)
+        settings.setGeolocationEnabled(false)
         settings.setAppCachePath(cacheDir.path)
     }
 
