@@ -51,6 +51,10 @@ class MainActivity : Activity() {
     private fun initViews() {
         showProgressDialog()
         webView.setWebViewClient(CustomWebViewClient(this, object : WebLoadingCallback {
+            override fun onNewPageLoadStarted() {
+                showProgressDialog()
+            }
+
             override fun onLoadedNewUrl(newUrl: String) {
                 UrlStateKeeper.put(newUrl)
             }

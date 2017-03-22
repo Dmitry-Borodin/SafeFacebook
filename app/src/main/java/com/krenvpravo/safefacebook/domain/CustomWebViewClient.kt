@@ -2,6 +2,7 @@ package com.krenvpravo.safefacebook.domain
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.net.http.SslError
 import android.webkit.*
@@ -32,6 +33,11 @@ class CustomWebViewClient(val activityContext: Context, val callback: WebLoading
         }
     }
 
+    override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+        super.onPageStarted(view, url, favicon)
+        callback.onNewPageLoadStarted()
+    }
+
     override fun onPageFinished(view: WebView?, url: String?) {
         super.onPageFinished(view, url)
         callback.onLoadedNewUrl(url ?: "")
@@ -57,5 +63,6 @@ class CustomWebViewClient(val activityContext: Context, val callback: WebLoading
         fun onUrlLoaded()
         fun onUrlLoadFailed(reason: String)
         fun onLoadedNewUrl(newUrl: String)
+        fun onNewPageLoadStarted()
     }
 }
