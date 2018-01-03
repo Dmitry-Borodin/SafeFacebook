@@ -120,7 +120,6 @@ class MainActivity : Activity() {
                 .show()
     }
 
-
     private fun setUpWebSettings(settings: WebSettings) {
         settings.setGeolocationEnabled(false)
         settings.javaScriptEnabled = false
