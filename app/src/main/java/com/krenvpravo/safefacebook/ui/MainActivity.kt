@@ -10,13 +10,11 @@ import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
 import com.afollestad.materialdialogs.MaterialDialog
-import com.crashlytics.android.Crashlytics
 import com.krenvpravo.safefacebook.Constants
 import com.krenvpravo.safefacebook.R
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient
 import com.krenvpravo.safefacebook.domain.CustomWebViewClient.WebLoadingCallback
 import com.krenvpravo.safefacebook.domain.UrlStateKeeper
-import io.fabric.sdk.android.Fabric
 
 
 /**
@@ -34,7 +32,6 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Fabric.with(this, Crashlytics())
         initViews()
     }
 
@@ -50,7 +47,7 @@ class MainActivity : Activity() {
 
     private fun initViews() {
         showProgressDialog()
-        webView.setWebViewClient(CustomWebViewClient(this, object : WebLoadingCallback {
+        webView.webViewClient = CustomWebViewClient(this, object : WebLoadingCallback {
             override fun onNewPageLoadStarted() {
                 showProgressDialog()
             }
@@ -66,7 +63,7 @@ class MainActivity : Activity() {
             override fun onUrlLoadFailed(reason: String) {
                 showRetryDialog(reason)
             }
-        }))
+        })
         setUpWebSettings(webView.settings)
         setUpCookies(webView)
         setContentView(webView)
