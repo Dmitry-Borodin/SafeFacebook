@@ -14,11 +14,10 @@ import com.krenvpravo.safefacebook.R
  * @author Dmitry Borodin on 2017-01-22.
  */
 
-class CustomWebViewClient(val activityContext: Context, val callback: WebLoadingCallback) : WebViewClient() {
+private const val FACEBOOK_HOSTNAME: String = "facebook.com"
 
-    private val FACEBOOK_HOSTNAME: String = "facebook.com"
+class CustomWebViewClient(private val activityContext: Context, private val callback: WebLoadingCallback) : WebViewClient() {
 
-    @Suppress("RedundantIf")
     override fun shouldOverrideUrlLoading(view: WebView, request: String): Boolean {
         if (FACEBOOK_HOSTNAME in request) {
             return false //show in web view

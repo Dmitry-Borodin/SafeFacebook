@@ -7,30 +7,30 @@ import java.util.*
  * @author Dmitry Borodin on 2017-01-22.
  */
 object UrlStateKeeper {
-    val backstack: MutableList<String> by lazy {
+    private val urlStack: MutableList<String> by lazy {
         ArrayList<String>()
     }
 
     fun put(url: String) {
-        if (!url.equals(getLast())) {
-            backstack.add(url)
+        if (url != getLast()) {
+            urlStack.add(url)
         }
     }
 
     fun pup(): String? {
-        if (backstack.isNotEmpty()) {
-            backstack.removeAt(backstack.lastIndex)
+        if (urlStack.isNotEmpty()) {
+            urlStack.removeAt(urlStack.lastIndex)
         }
-        if (backstack.isEmpty()) {
+        if (urlStack.isEmpty()) {
             return null
         }
-        return backstack.last()
+        return urlStack.last()
     }
 
     fun getLast(): String {
-        if (backstack.isEmpty()) {
+        if (urlStack.isEmpty()) {
             return Constants.MAIN_URL
         }
-        return backstack.last()
+        return urlStack.last()
     }
 }
