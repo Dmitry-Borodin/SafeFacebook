@@ -23,7 +23,7 @@ import com.krenvpravo.safefacebook.domain.UrlStateKeeper
 
 class MainActivity : Activity() {
 
-    private var progressDialog: ProgressDialog? = null
+    private val progressDialog by lazy { ProgressDialog(this) }
 
     private val webView: WebView by lazy {
         val webView = WebView(this)
@@ -72,7 +72,7 @@ class MainActivity : Activity() {
     }
 
     override fun onBackPressed() {
-        val previousUrl = UrlStateKeeper.pup()
+        val previousUrl = UrlStateKeeper.skipTop()
         if (previousUrl != null) {
             webView.loadUrl(previousUrl)
         } else {
@@ -81,30 +81,26 @@ class MainActivity : Activity() {
     }
 
     private fun dismissProgressDialog() {
-        if (progressDialog?.isShowing ?: false) {
-            progressDialog?.dismiss()
-            progressDialog = null
-        }
+        progressDialog.dismiss()
     }
 
     private fun showProgressDialog() {
-        if (progressDialog == null) progressDialog = ProgressDialog(this)
-        progressDialog?.setMessage(getString(R.string.progress_dialog_initial_title))
-        progressDialog?.show()
+        progressDialog.setMessage(getString(R.string.progress_dialog_initial_title))
+        progressDialog.show()
     }
 
     private fun showRetryDialog(whyFailed: String) {
-        val sbContent = StringBuilder()
-        sbContent.append(getString(R.string.load_fail_content1))
-                .append(whyFailed)
-                .append(getString(R.string.load_fail_content2))
-                .append(getString(R.string.load_fail_content3))
-
+        val sbContent = StringBuilder().apply {
+            append(getString(R.string.load_fail_content1))
+            append(whyFailed)
+            append(getString(R.string.load_fail_content2))
+            append(getString(R.string.load_fail_content3))
+        }
         MaterialDialog.Builder(this)
                 .title(getString(R.string.load_fail_title))
                 .content(sbContent.toString())
                 .positiveText(getString(R.string.retry_button))
-                .onPositive { dialog, which ->
+                .onPositive { _, _ ->
                     if (isNetworkAvailable()) {
                         webView.reload()
                         showProgressDialog()

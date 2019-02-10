@@ -1,15 +1,12 @@
 package com.krenvpravo.safefacebook.domain
 
 import com.krenvpravo.safefacebook.Constants
-import java.util.*
 
 /**
  * @author Dmitry Borodin on 2017-01-22.
  */
 object UrlStateKeeper {
-    private val urlStack: MutableList<String> by lazy {
-        ArrayList<String>()
-    }
+    private val urlStack = ArrayList<String>()
 
     fun put(url: String) {
         if (url != getLast()) {
@@ -17,7 +14,7 @@ object UrlStateKeeper {
         }
     }
 
-    fun pup(): String? {
+    fun skipTop(): String? {
         if (urlStack.isNotEmpty()) {
             urlStack.removeAt(urlStack.lastIndex)
         }
