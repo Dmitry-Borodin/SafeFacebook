@@ -24,23 +24,15 @@ android {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation ('com.afollestad.material-dialogs:core:0.9.6.0') {
 //        exclude module: 'appcompat-v7'
 //        exclude module: 'recyclerview-v7'
     }
 
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
-        transitive = true
-    }
-
-
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-}
-repositories {
-    mavenCentral()
 }
