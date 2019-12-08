@@ -14,7 +14,7 @@ object UrlStateKeeper {
         }
     }
 
-    fun skipTop(): String? {
+    fun popTop(): String? {
         if (urlStack.isNotEmpty()) {
             urlStack.removeAt(urlStack.lastIndex)
         }

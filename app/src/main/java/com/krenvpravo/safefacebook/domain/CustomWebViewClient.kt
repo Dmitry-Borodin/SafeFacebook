@@ -5,22 +5,21 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.net.http.SslError
-import android.webkit.*
+import android.webkit.SslErrorHandler
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
+import com.krenvpravo.safefacebook.Constants
 import com.krenvpravo.safefacebook.R
-
-
-/**
- * @author Dmitry Borodin on 2017-01-22.
- */
-
-private const val FACEBOOK_HOSTNAME: String = "facebook.com"
 
 class CustomWebViewClient(private val activityContext: Context, private val callback: WebLoadingCallback) : WebViewClient() {
 
     override fun shouldOverrideUrlLoading(view: WebView, request: String): Boolean {
-        if (FACEBOOK_HOSTNAME in request) {
-            return false //show in web view
+        return if (Constants.MAIN_HOSTNAME in request) {
+            false //show in web view
         } else {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(request))
             if (intent.resolveActivity(activityContext.packageManager) != null) {
@@ -28,7 +27,7 @@ class CustomWebViewClient(private val activityContext: Context, private val call
             } else {
                 Toast.makeText(activityContext, activityContext.getString(R.string.webbrowser_not_sound), Toast.LENGTH_LONG).show()
             }
-            return true //NOT show in web view - i opened browser
+            true //NOT show in web view - i opened browser
         }
     }
 

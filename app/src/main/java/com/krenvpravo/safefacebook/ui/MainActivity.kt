@@ -21,7 +21,7 @@ import com.krenvpravo.safefacebook.domain.isNetworkAvailable
 
 class MainActivity : Activity() {
 
-	private val progressDialog by lazy { ProgressDialog(this) }
+	private val progressDialog by lazy(LazyThreadSafetyMode.NONE) { ProgressDialog(this) }
 
 	private val webView: WebView by lazy(LazyThreadSafetyMode.NONE) { WebView(this) }
 
@@ -67,7 +67,7 @@ class MainActivity : Activity() {
 	}
 
 	override fun onBackPressed() {
-		val previousUrl = UrlStateKeeper.skipTop()
+		val previousUrl = UrlStateKeeper.popTop()
 		if (previousUrl != null) {
 			webView.loadUrl(previousUrl)
 		} else {
