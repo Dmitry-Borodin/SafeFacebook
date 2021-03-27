@@ -1,5 +1,7 @@
 package com.krenvpravo.safefacebook
 
+import android.os.Build
+
 /**
  * @author Dmitry Borodin on 2017-01-22.
  */
@@ -7,7 +9,8 @@ package com.krenvpravo.safefacebook
 object Constants {
     const val MAIN_URL = "https://m.facebook.com/"
     const val MAIN_HOSTNAME: String = "facebook.com"
-    const val USERAGENT_CHROME = "Mozilla/5.0 (Linux; Android 4.4.4; One Build/KTU84L.H4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.135 Mobile Safari/537.36"
+    val mobileAgent = "Mozilla/5.0 (Linux; Android ${Build.VERSION.RELEASE})"
+    val desktopAgent = "Mozilla/5.0 (X11; Linux ${System.getProperty("os.arch")})"
 }
 
 data class SiteUrls(val main: String, val links: Map<String, String>)

@@ -106,7 +106,7 @@ class MainActivity : Activity() {
 		settings.setGeolocationEnabled(false)
 		settings.javaScriptEnabled = false
 		settings.setAppCacheEnabled(true)
-		settings.userAgentString = Constants.USERAGENT_CHROME
+		settings.userAgentString = Constants.desktopAgent
 		settings.setAppCacheEnabled(true)
 		settings.setGeolocationEnabled(false)
 		settings.setAppCachePath(cacheDir.path)
