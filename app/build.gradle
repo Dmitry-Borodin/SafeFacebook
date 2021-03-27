@@ -25,7 +25,6 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation ('com.afollestad.material-dialogs:core:0.9.6.0') {
 //        exclude module: 'appcompat-v7'
 //        exclude module: 'recyclerview-v7'
