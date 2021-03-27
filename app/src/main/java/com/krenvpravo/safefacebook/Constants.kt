@@ -7,7 +7,7 @@ import android.os.Build
  */
 
 object Constants {
-    const val MAIN_URL = "https://m.facebook.com/"
+    const val MAIN_URL = "https://facebook.com/"
     const val MAIN_HOSTNAME: String = "facebook.com"
     val mobileAgent = "Mozilla/5.0 (Linux; Android ${Build.VERSION.RELEASE})"
     val desktopAgent = "Mozilla/5.0 (X11; Linux ${System.getProperty("os.arch")})"
@@ -15,10 +15,10 @@ object Constants {
 
 data class SiteUrls(val main: String, val links: Map<String, String>)
 
-fun getFacebookUrls() = SiteUrls("https://m.facebook.com/", mutableMapOf(
-        "Groups" to "https://m.facebook.com/groups/?seemore",
-        "Friends" to "https://m.facebook.com/buddylist.php",
-        "Messages" to "https://m.facebook.com/messages/"))
+fun getFacebookUrls() = SiteUrls("https://facebook.com/", mutableMapOf(
+        "Groups" to "https://facebook.com/groups/?seemore",
+        "Friends" to "https://facebook.com/buddylist.php",
+        "Messages" to "https://facebook.com/messages/"))
 
 fun getVkUrls() = SiteUrls("https://m.vk.com/", mutableMapOf(
         "Groups" to "https://m.vk.com/groups/?seemore",
